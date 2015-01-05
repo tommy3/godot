@@ -4245,7 +4245,13 @@ void RasterizerGLES2::clear_viewport(const Color& p_color) {
 	}
 
 	glEnable(GL_SCISSOR_TEST);
-	glClearColor(p_color.r,p_color.g,p_color.b,1.0);
+
+    if(current_rt_transparent) {
+		glClearColor(p_color.r,p_color.g,p_color.b,0.0);
+	} else {
+		glClearColor(p_color.r,p_color.g,p_color.b,1.0);
+	}
+
 	glClear(GL_COLOR_BUFFER_BIT); //should not clear if anything else cleared..
 	glDisable(GL_SCISSOR_TEST);
 };
